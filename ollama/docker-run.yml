@@ -1,0 +1,1 @@
+ docker run -d -p 8888:8080 --gpus=all -v ./ollama:/root/.ollama -v ./data:/app/backend/data --name tchat --restart always ghcr.io/open-webui/open-webui:ollama

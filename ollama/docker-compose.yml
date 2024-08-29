@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:ollama
+    container_name: tchat
+    ports:
+      - "8084:8080"
+    volumes:
+      - ./ollama:/root/.ollama
+      - ./data:/app/backend/data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    external: true

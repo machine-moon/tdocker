@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  code-server:
+    image: codercom/code-server:latest
+    container_name: vs-code
+    user: "1002:1002"
+    environment:
+      - PASSWORD=CHANGE_ME
+      - TZ=Etc/UTC
+      - DEFAULT_WORKSPACE=/home/coder/workspace
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./workspace:/home/coder/workspace
+      - ./data:/home/coder
+    restart: unless-stopped
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    external: true

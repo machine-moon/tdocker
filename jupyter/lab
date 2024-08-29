@@ -1,0 +1,48 @@
+#!/bin/bash
+
+JUPYTER_PID_FILE="/tmp/jupyter_lab.pid"
+JUPYTER_LOG_FILE="/tmp/jupyter_lab.log"
+
+start() {
+    if [ -f "$JUPYTER_PID_FILE" ] && kill -0 $(cat "$JUPYTER_PID_FILE") 2>/dev/null; then
+        echo "Jupyter Lab is already running with PID $(cat "$JUPYTER_PID_FILE")."
+    else
+        echo "Starting Jupyter Lab..."
+        nohup jupyter lab --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token='' > "$JUPYTER_LOG_FILE" 2>&1 &
+        echo $! > "$JUPYTER_PID_FILE"
+        echo "Jupyter Lab started with PID $(cat "$JUPYTER_PID_FILE")."
+    fi
+}
+
+stop() {
+    if [ -f "$JUPYTER_PID_FILE" ] && kill -0 $(cat "$JUPYTER_PID_FILE") 2>/dev/null; then
+        echo "Stopping Jupyter Lab with PID $(cat "$JUPYTER_PID_FILE")..."
+        kill $(cat "$JUPYTER_PID_FILE") && rm "$JUPYTER_PID_FILE"
+        echo "Jupyter Lab stopped."
+    else
+        echo "Jupyter Lab is not running."
+    fi
+}
+
+status() {
+    if [ -f "$JUPYTER_PID_FILE" ] && kill -0 $(cat "$JUPYTER_PID_FILE") 2>/dev/null; then
+        echo "Jupyter Lab is running with PID $(cat "$JUPYTER_PID_FILE")."
+    else
+        echo "Jupyter Lab is not running."
+    fi
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|status}"
+        exit 1
+esac

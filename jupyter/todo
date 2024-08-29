@@ -1,0 +1,6 @@
+move jupyter to diff port than 8888
+
+create a custom jupyter container and add to nginx-network AND to host
+
+8082:8888
+simply takes nginx->custom->talks to jupyter server
