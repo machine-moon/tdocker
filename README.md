@@ -1,4 +1,3 @@
-```markdown
 # TDocker
 
 TDocker is a suite of Docker Compose setups designed to simplify application deployment on an NGINX network. This repository includes configurable environments for various applications, such as code editors, file management systems, databases, and more.
