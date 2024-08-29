@@ -55,5 +55,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-Developed by Tarek.I  
-```
+Developed by Tarek.I
